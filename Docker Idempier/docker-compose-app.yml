@@ -34,6 +34,8 @@ services:
     environment:
       - TZ=America/Caracas
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
     networks:
       - int-net
     healthcheck:

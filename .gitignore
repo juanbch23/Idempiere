@@ -1,4 +1,3 @@
-backups/
 .env
 *.pfx
 *.p12
