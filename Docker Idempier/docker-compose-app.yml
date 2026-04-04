@@ -1,0 +1,54 @@
+services:
+
+  idempiere:
+    image: idempiereofficial/idempiere:12-master
+    container_name: idempiere
+    restart: unless-stopped
+    volumes:
+      - idempiere_config:/opt/idempiere/configuration
+      - idempiere_plugins:/opt/idempiere/plugins
+    environment:
+      - TZ=America/Caracas
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_ADMIN_PASS=${DB_ADMIN_PASS}
+    ports:
+      - "8080:8080"
+    networks:
+      - int-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/8080'"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: unless-stopped
+    volumes:
+      - idempiere_data:/var/lib/postgresql/data
+    environment:
+      - TZ=America/Caracas
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - int-net
+    healthcheck:
+      test: ["CMD-SHELL", "PGPASSWORD='${POSTGRES_PASSWORD}' psql -U postgres -d postgres -h 127.0.0.1 -p 5432 -c 'SELECT 1' >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  idempiere_data:
+  idempiere_plugins:
+  idempiere_config:
+
+networks:
+  int-net:
+    name: int-net
+    driver: bridge
