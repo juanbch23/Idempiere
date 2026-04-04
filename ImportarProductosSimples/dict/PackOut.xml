@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><idempiere Name="AD_ImpFormat" Version="1.0.0" idempiereVersion="12.0.0.202412231317" DataBaseVersion="2024-12-24" Description="" Author="SuperUser" AuthorEmail="superuser @ idempiere.com" CreatedDate="Tue Dec 30 21:37:25 VET 2025" UpdatedDate="Tue Dec 30 21:37:25 VET 2025" PackOutVersion="100" UpdateDictionary="false" Client="1000000-Market-Market" AD_Client_UU="9c53c1fb-c4cc-4f1c-a59c-17fcbd884f18">
+    <AD_ImpFormat type="table">
+        <AD_Org_ID>0</AD_Org_ID>
+        <IsActive>Y</IsActive>
+        <Name>Importar productos simple</Name>
+        <Description>Importar productos simple</Description>
+        <FormatType>C</FormatType>
+        <AD_Table_ID reference="id">532</AD_Table_ID>
+        <Processing>N</Processing>
+        <SeparatorChar/>
+        <AD_ImpFormat_UU>57554d6b-889e-40ac-9fe6-84d88a1cb483</AD_ImpFormat_UU>
+        <AD_ImpFormat_Row type="table">
+            <AD_Org_ID>0</AD_Org_ID>
+            <IsActive>Y</IsActive>
+            <Name>Valor de Busqueda</Name>
+            <AD_ImpFormat_ID reference="uuid" reference-key="AD_ImpFormat">57554d6b-889e-40ac-9fe6-84d88a1cb483</AD_ImpFormat_ID>
+            <SeqNo>10</SeqNo>
+            <StartNo>1</StartNo>
+            <EndNo>0</EndNo>
+            <DataType>S</DataType>
+            <DataFormat/>
+            <DecimalPoint>.</DecimalPoint>
+            <DivideBy100>N</DivideBy100>
+            <AD_Column_ID reference="id">7864</AD_Column_ID>
+            <Callout/>
+            <ConstantValue/>
+            <Script/>
+            <AD_ImpFormat_Row_UU>ceb8d940-ba92-4625-8c4a-c4a42b195cae</AD_ImpFormat_Row_UU>
+            <ImportPrefix/>
+        </AD_ImpFormat_Row>
+        <AD_ImpFormat_Row type="table">
+            <AD_Org_ID>0</AD_Org_ID>
+            <IsActive>Y</IsActive>
+            <Name>SKU</Name>
+            <AD_ImpFormat_ID reference="uuid" reference-key="AD_ImpFormat">57554d6b-889e-40ac-9fe6-84d88a1cb483</AD_ImpFormat_ID>
+            <SeqNo>40</SeqNo>
+            <StartNo>4</StartNo>
+            <EndNo>0</EndNo>
+            <DataType>S</DataType>
+            <DataFormat/>
+            <DecimalPoint>.</DecimalPoint>
+            <DivideBy100>N</DivideBy100>
+            <AD_Column_ID reference="id">7834</AD_Column_ID>
+            <Callout/>
+            <ConstantValue/>
+            <Script/>
+            <AD_ImpFormat_Row_UU>9c37506a-0758-4ba2-b394-1f34f853d818</AD_ImpFormat_Row_UU>
+            <ImportPrefix/>
+        </AD_ImpFormat_Row>
+        <AD_ImpFormat_Row type="table">
+            <AD_Org_ID>0</AD_Org_ID>
+            <IsActive>Y</IsActive>
+            <Name>Description</Name>
+            <AD_ImpFormat_ID reference="uuid" reference-key="AD_ImpFormat">57554d6b-889e-40ac-9fe6-84d88a1cb483</AD_ImpFormat_ID>
+            <SeqNo>30</SeqNo>
+            <StartNo>3</StartNo>
+            <EndNo>0</EndNo>
+            <DataType>S</DataType>
+            <DataFormat/>
+            <DecimalPoint>.</DecimalPoint>
+            <DivideBy100>N</DivideBy100>
+            <AD_Column_ID reference="id">7842</AD_Column_ID>
+            <Callout/>
+            <ConstantValue/>
+            <Script/>
+            <AD_ImpFormat_Row_UU>7ec960e1-77d1-478a-8250-2b3f59da57ac</AD_ImpFormat_Row_UU>
+            <ImportPrefix/>
+        </AD_ImpFormat_Row>
+        <AD_ImpFormat_Row type="table">
+            <AD_Org_ID>0</AD_Org_ID>
+            <IsActive>Y</IsActive>
+            <Name>Nombre</Name>
+            <AD_ImpFormat_ID reference="uuid" reference-key="AD_ImpFormat">57554d6b-889e-40ac-9fe6-84d88a1cb483</AD_ImpFormat_ID>
+            <SeqNo>20</SeqNo>
+            <StartNo>2</StartNo>
+            <EndNo>0</EndNo>
+            <DataType>S</DataType>
+            <DataFormat/>
+            <DecimalPoint>.</DecimalPoint>
+            <DivideBy100>N</DivideBy100>
+            <AD_Column_ID reference="id">7819</AD_Column_ID>
+            <Callout/>
+            <ConstantValue/>
+            <Script/>
+            <AD_ImpFormat_Row_UU>b49576a4-9e82-4f2f-8b4c-fde4b72c2ca8</AD_ImpFormat_Row_UU>
+            <ImportPrefix/>
+        </AD_ImpFormat_Row>
+    </AD_ImpFormat>
+</idempiere>
