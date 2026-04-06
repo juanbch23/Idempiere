@@ -134,13 +134,50 @@ Endpoints usados:
 ```
 
 ### Pruebas de Aceptación (Selenium)
-- Framework: **Python + pytest + selenium** (WebDriver Chrome)
-- Ubicación: `tests/acceptance/`
-- Ejecutar: `python -m pytest tests/acceptance/ -v`
-- Los tests deben poder correr contra `localhost:8080` (dev) o contra `store.thesispath.cloud` (prod)
-- Variable de entorno: `IDE_BASE_URL` (default: `http://localhost:8080`)
-- Cada escenario es independiente — crea sus datos, los valida, los limpia
-- ChromeDriver en modo headless para CI
+
+- **Framework:** NUnit 4 + Selenium WebDriver 4 — **.NET 10** (NO Python/pytest)
+- **Solución:** `Pruebas-Idempiere/Idempiere.sln`
+- **Tests de referencia ya funcionando:** `tests/AcceptanceTests/IdempiereTests/` — 2/2 GREEN
+- **Variables de entorno:**
+  - `IDE_BASE_URL` (default: `http://localhost:8080`)
+  - `IDE_ADMIN_LOGIN` (default: `System`)
+  - `IDE_ADMIN_PASS` (default: `System`)
+  - `IDE_HEADLESS` (default: `true`) — poner `false` para debug visual
+
+**Estructura de proyectos:**
+```
+Pruebas-Idempiere/
+├── ControladorSeleniumErp/     ← INavegadorErp + NavegadorErp (abstracción del driver)
+├── NavegadorIdempiere/         ← Page Objects (PaginaAccesoErp, PaginaProductosErp, ...)
+├── PruebasAceptacionIdempiere/ ← Tests e2e (BaseTest + *ItCase.cs)
+└── PruebasUnitariasIdempiere/  ← Tests unitarios con Moq (sin browser)
+```
+
+**ZK Framework — regla crítica:** los `id` como `yNFAt` son DINÁMICOS. Usar siempre CSS por atributo o clase:
+- Campo usuario: `input[autocomplete='username']`
+- Campo contraseña: `input[autocomplete='current-password']`
+- Botón OK login: `button.login-btn`
+- Siempre escribir campos ZK con `EscribirCampoZk()` (usa Actions: click+Ctrl+A+type)
+
+**Flujo login:**
+```
+Abrir() → ClickAcceso() → EsperarFormularioLogin() → EscribirUsuario() → EscribirContrasena() → PresionarBotonOk() → EsperarPostLogin()
+```
+
+**Ejecutar:**
+```bash
+# Solo unitarios (sin browser, ~3s)
+cd Pruebas-Idempiere && dotnet test PruebasUnitariasIdempiere
+
+# Aceptación (requiere iDempiere corriendo)
+cd Pruebas-Idempiere && dotnet test PruebasAceptacionIdempiere
+
+# Por módulo
+dotnet test PruebasAceptacionIdempiere --filter "Category=Acceso"
+
+# Tests de referencia existentes
+cd tests/AcceptanceTests && dotnet test
+```
 
 ---
 
@@ -215,14 +252,20 @@ docker exec -i postgres pg_restore -U adempiere -d idempiere --clean < backups/m
 ```
 
 ```bash
-# Correr pruebas de aceptación
-python -m pytest tests/acceptance/ -v
+# Tests unitarios (sin browser, ~3s)
+cd Pruebas-Idempiere && dotnet test PruebasUnitariasIdempiere
 
-# Correr solo un escenario
-python -m pytest tests/acceptance/test_sales_cycle.py::test_full_cycle_with_stock -v
+# Tests de aceptación (requiere iDempiere corriendo)
+cd Pruebas-Idempiere && dotnet test PruebasAceptacionIdempiere
 
-# Correr pruebas con headless desactivado (debug visual)
-IDE_HEADLESS=false python -m pytest tests/acceptance/ -v
+# Solo un módulo/categoría
+cd Pruebas-Idempiere && dotnet test PruebasAceptacionIdempiere --filter "Category=Acceso"
+
+# Tests de referencia existentes (2/2 GREEN)
+cd tests/AcceptanceTests && dotnet test
+
+# Debug visual (browser visible) — comentar --headless=new en BaseTest.cs
+cd Pruebas-Idempiere && dotnet test PruebasAceptacionIdempiere
 ```
 
 ---
@@ -247,10 +290,8 @@ Status: ⬜ No iniciado | 🔧 En progreso | ✅ Hecho
 
 #### Task 0.1 — Estructura de carpetas y `.gitignore`
 - [ ] Crear `backups/` (gitignoreado)
-- [ ] Crear `tests/acceptance/` con `__init__.py`
-- [ ] Crear `tests/acceptance/helpers/` con `base_test.py` (clase base Selenium)
-- [ ] Actualizar `.gitignore`: `backups/*.dump`, `*.pyc`, `__pycache__/`, `.env`, `*.pfx`
-- [ ] Crear `requirements.txt`: `selenium`, `pytest`, `python-dotenv`, `requests`
+- [ ] Actualizar `.gitignore`: `backups/*.dump`, `.env`, `*.pfx`, `**/bin/`, `**/obj/`
+- [ ] Verificar que `Pruebas-Idempiere/` esté en el repo (solución .NET 10 ya creada)
 
 #### Task 0.2 — `scripts/checkVars.ps1`
 > **Testing:** Ejecutar el script — con vars seteadas: exit 0 todo verde. Sin vars: exit 1 rojo.
