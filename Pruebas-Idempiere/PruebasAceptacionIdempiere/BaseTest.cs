@@ -29,7 +29,7 @@ namespace PruebasAceptacionIdempiere
             {
                 var opciones = new ChromeOptions();
                 opciones.AcceptInsecureCertificates = true;
-                //opciones.AddArguments("--headless=new");
+                opciones.AddArguments("--headless=new");
                 opciones.AddArguments("--no-sandbox");
                 opciones.AddArguments("--disable-gpu");
                 opciones.AddArguments("--disable-dev-shm-usage");
